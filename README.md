@@ -9,19 +9,6 @@
 20160718 开始刷题
 
 
-list_book:
-c++primer
-剑指offer
-计算机网络
-计算机系统
-leetcode 
-
-PS
-
-select, poll, epoll 都是I/O多路复用的具体的实现，之所以有这三个鬼存在，其实是他们出现是有先后顺序的。 (需一一了解)
-
-http 轮询和心跳
-
 工作计划：
 20160715
 
@@ -38,3 +25,15 @@ linux:看下面试常考题
 武汉
 blog，github更新。
 
+list_book:
+c++primer
+剑指offer
+计算机网络
+计算机系统
+leetcode 
+
+PS
+
+select, poll, epoll 都是I/O多路复用的具体的实现，之所以有这三个存在，其实是他们出现是有先后顺序的。 (需一一了解)
+
+http 轮询和心跳(项目中遇到的问题)
