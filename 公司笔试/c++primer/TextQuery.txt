@@ -1,0 +1,120 @@
+//============================================================================
+// Name        : ex20150704.cpp
+// Author      : 11
+// Version     :
+// Copyright   : Your copyright notice
+// Description : Hello World in C++, Ansi-style
+//============================================================================
+/*读取文件，将每行句子输入到vector里面，然后将每行句子分解成每个单词，建立map(map<word,set<line_number>>)，
+map[word].insert(line_number),对每个word添加它的行号，输入word,通过word_map.find(word)找到word,->second返回set对象，输出set对象的行号*/
+
+#include <iostream>
+#include <vector>
+#include <string>
+#include <bitset>
+#include <cstring>
+#include <bitset>
+#include <stdexcept>
+#include <typeinfo>
+#include <cassert>
+#include <fstream>
+#include<list>
+#include<deque>
+#include<time.h>
+#include <ctime>
+#include <Windows.h>
+#include<stack>
+#include<queue>
+#include<utility>
+#include<map>
+#include<set>
+#include <cstring>
+#include<fstream>
+#include<sstream>
+using namespace std;
+// we phoenix kobe;
+class TextQuery
+{
+public:
+	typedef vector<string>::size_type line_number;
+	set<line_number> run_query(const string &)const;
+	void read_file(ifstream &is)
+	{
+		store_file(is);
+		bulid_map();
+	}
+	string text_line(line_number)const;
+private:
+	void store_file(ifstream &);
+	void bulid_map();
+	vector<string> line_of_text;
+	map<string, set<line_number> > word_map;
+};
+set<TextQuery::line_number> TextQuery::run_query(const string &query_word)const
+{//查找单词出现的行数
+	map<string, set<line_number> >::const_iterator loc = word_map.find(query_word);
+	if (loc == word_map.end())
+		return set<line_number>();//return empty
+	else
+		return loc->second;  //返回set
+}
+void TextQuery::store_file(ifstream &is)//vector 存储每行的句子
+{
+	string textline;
+	while (getline(is, textline)) //换行为终结符“\n”
+	{
+		line_of_text.push_back(textline);
+	}
+}
+void TextQuery::bulid_map()   //建立map
+{
+	for (line_number line_num = 0; line_num < line_of_text.size(); line_num++)
+	{
+		istringstream line(line_of_text[line_num]);//读取每一行的句子
+		string word;
+		
+		while (line >> word) //读取每行句子中的 每个单词
+			word_map[word].insert(line_num); //建立map,根据map[word]插入word出现的行数
+	}
+}
+string make_plural(size_t ctr,const string &word,const string &end)
+{
+	return (ctr == 1||ctr==0) ? word : word + end;  
+}
+string TextQuery::text_line(line_number line) const//查找出现行数的句子
+{ 
+	if (line < line_of_text.size())
+		return line_of_text[line];
+	throw out_of_range("line number out of range");
+}
+void print_results(set<TextQuery::line_number>& l, const string &s, const TextQuery &file)//打印单词出现的行数 
+{
+	typedef set<TextQuery::line_number> line_nums;
+	line_nums::size_type size = l.size();
+	cout << "\n" << s << " 出现了：" << size << "次。" << make_plural(size, "time", "s")<<endl;
+	line_nums::const_iterator it = l.begin();
+	for (; it != l.end(); it++)
+	{
+		cout << "\t(line" << (*it) + 1 << ")" << file.text_line(*it) << endl;
+	}
+}
+int main()
+{
+	ifstream  infile;
+	string filename("Text.txt");
+	infile.open("Text.txt");
+	TextQuery tq;
+	tq.read_file(infile);
+	string word;
+	while (true)
+	{
+		cout << "enter one word: ";
+		cin >> word;
+		if (!cin || word == "q")
+			break;
+		set<TextQuery::line_number> locs = tq.run_query(word);
+		print_results(locs, word, tq);
+	}
+	
+	return 0;
+}

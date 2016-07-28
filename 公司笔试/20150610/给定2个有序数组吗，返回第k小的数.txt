@@ -1,0 +1,49 @@
+/*设较短的数组为s，另外一个为l，k<s+l
+若1<=k<=s，则求s,l前k个数的上中位数
+若k>l,舍弃一部分，满足条件后进行二分。
+若s<k<L，同上。构造相同的范围，利用上中位数求解。
+判断是否为空，k小于1或者大于l+s均不存在。
+*/
+public class Solution {
+    public int findKthNum(int[] arr1, int[] arr2, int kth) {
+        if(arr1==null||arr2==null)
+            return -1;
+        if(kth<1||kth>arr1.length+arr2.length)
+            return -1;
+        
+        int[] longarr=arr1.length>=arr2.length?arr1:arr2;
+        int[] shortarr=arr1.length>=arr2.length?arr2:arr1;
+        
+        int lenl=longarr.length;
+        int lens=shortarr.length;
+        if(kth<=lens)
+            return find(shortarr,0,kth-1,longarr,0,kth-1);
+        if(kth>lenl)
+            {
+            if(shortarr[kth-lenl-1]>=longarr[lenl-1])
+                return shortarr[kth-lenl-1];
+            if(longarr[kth-lens-1]>=shortarr[lens-1])
+                return longarr[kth-lens-1];
+            return find(shortarr,kth-lenl,lens-1,longarr,kth-lens,lenl-1);
+        }
+        if(longarr[kth-lens-1]>=shortarr[lens-1])
+            return longarr[kth-lens-1];
+        return find(shortarr,0,lens-1,longarr,kth-lens,kth-1);
+        
+    }
+    
+    int find(int[] arr1,int start1,int end1, int[] arr2,int start2,int end2)
+    {
+        if(start1==end1)
+            return arr1[start1]>arr2[start2]?arr2[start2]:arr1[start1];
+        int offset=(end1-start1+1+1)%2;
+        int mid1=(start1+end1)/2;
+        int mid2=(start2+end2)/2;
+        if(arr1[mid1]>arr2[mid2])
+            return find(arr1,start1,mid1,arr2,mid2+offset,end2);
+        else if(arr1[mid1]<arr2[mid2])
+            return find(arr1,mid1+offset,end1,arr2,start2,mid2);
+        else
+            return arr1[mid1];
+    }
+}

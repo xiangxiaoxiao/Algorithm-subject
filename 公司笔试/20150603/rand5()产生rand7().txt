@@ -1,0 +1,51 @@
+function rand7()
+{
+    while (true)
+    {
+        //得出[0,24]的平均分布
+        $i = 5 * (rand5() - 1) + (rand5() - 1);
+        //只取前21个, 前21个也是平均分布,然后mod 7
+        if( $i < 21 )
+        {
+            return $i % 7 + 1;
+        }
+    }
+}
+
+
+// Gen 0, 1 equal probability
+int 
+rand01()
+
+{
+    int i = rand5();
+    
+while (i > 4) {
+i = rand5();}
+   
+ return i % 2;
+}
+ 
+
+// Gen 0, 1, 2, 3, 4, 5, 6, 7 equal probability
+int 
+rand07()
+
+{
+    return rand01() << 2 + rand01() << 1 + rand01();
+}
+ 
+
+// Gen 1, 2, 3, 4, 5, 6, 7 equal probability
+int 
+rand7()
+{
+    
+int i = rand07();
+    
+while (i == 0) 
+{i = rand07();}
+    
+return i;
+}
+

@@ -1,0 +1,91 @@
+/*   1 2 3 3 2 1   #1#2#3#3#2#1 加特殊符号（任意字符，可与字符串重复，不影响结果。）外扩。奇偶回文都可以求出
+  PARR[]可扩长度，半径结果。 1 2 3 2 1 为3.PARR[2]=3
+  pR=0 半径即将到达的下一个位置坐标 #1#2#1#  当为1的时候 pR=3
+  index 当pR更新的时候，记录下回文中心的位置  pr和index配套
+
+1.大于
+2.小于
+3.等于 （省去部分）
+4. 不在index半径里面
+*/
+
+public char[] manacherString(String str) {
+		char[] charArr = str.toCharArray();
+		char[] res = new char[str.length() * 2 + 1];
+		int index = 0;
+		for (int i = 0; i != res.length; i++) {
+			res[i] = (i & 1) == 0 ? '#' : charArr[index++];
+		}
+		return res;
+	}
+
+	public int maxLcpsLength(String str) {
+		if (str == null || str.length() == 0) {
+			return 0;
+		}
+		char[] charArr = manacherString(str);
+		int[] pArr = new int[charArr.length];
+		int index = -1;// 配套pR的回文中心
+		int pR = -1;// 即将到达的位置
+		int max = Integer.MIN_VALUE;
+		for (int i = 0; i != charArr.length; i++) {
+			pArr[i] = pR > i ? Math.min(pArr[2 * index - i], pR - i) : 1; //判断除开等于那种情况
+			while (i + pArr[i] < charArr.length && i - pArr[i] > -1) {    //左右边界
+				if (charArr[i + pArr[i]] == charArr[i - pArr[i]])  //两边扩
+					pArr[i]++;
+				else {
+					break;
+				}
+			}
+			if (i + pArr[i] > pR) {
+				pR = i + pArr[i];
+				index = i;
+			}
+			max = Math.max(max, pArr[i]);
+		}
+		return max - 1;
+	}
+
+
+c++:
+#include<iostream>  
+#include<cstdio>  
+#include<cstdlib>  
+#include<cstring>  
+#include<string>  
+#include<queue>  
+#include<algorithm>  
+#include<map>  
+#include<iomanip>  
+#define INF 99999999  
+using namespace std;  
+  
+const int MAX=110000+10;  
+char s[MAX*2];  
+int p[MAX*2];  
+int min(int a,int b)
+{
+	return a>b?b:a;
+}
+  
+int main(){  
+    while(scanf("%s",s)!=EOF){  
+        int len=strlen(s),id=0,maxlen=0;  
+		cout<<"len is "<<len<<endl;
+        for(int j=len-1;j>=0;--j){//插入'#' 
+			cout<<" s[j] is :"<<s[j]<<endl;
+            s[j+j+2]=s[j];  
+            s[j+j+1]='#';  
+        }//插入了len+1个'#',最终的s长度是1~len+len+1即2*len+1,首尾s[0]和s[2*len+2]要插入不同的字符   
+        s[0]='*';//s[0]='*',s[len+len+2]='\0',防止在while时p[i]越界  
+        for(int i=2;i<2*len+1;++i){  
+            if(p[id]+id>i)p[i]=min(p[2*id-i],p[id]+id-i);  
+            else p[i]=1;  
+            while(s[i-p[i]] == s[i+p[i]])++p[i];  
+            if(id+p[id]<i+p[i])id=i;  
+            if(maxlen<p[i])maxlen=p[i];  
+        }  
+        cout<<maxlen-1<<endl;  
+    }  
+    return 0;  
+} 

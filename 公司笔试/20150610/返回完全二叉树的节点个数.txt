@@ -1,0 +1,43 @@
+/* 头结点一次往左统计，即可算出完全二叉树的高度h ，再找头结点右子树的最左节点，到没到最后一层。若到了，头结点左子树为满的（二分思想），右子树递归；若没到，则右子树是满的，左子树递归。
+复杂度:遍历右子树的左节点，O(h),每层均有一个节点进入递归，0(h)，复杂度为O(h2)。
+*/ 头结点，遍历左右子树，计算层数
+struct TreeNode {
+    int val;
+    struct TreeNode *left;
+    struct TreeNode *right;
+    TreeNode(int x) :
+            val(x), left(NULL), right(NULL) {
+    }
+};
+class Solution {
+public:
+    int nodeNum(struct TreeNode* head) {
+		if(head==NULL)
+            {
+            return 0;
+        }
+        return bs(head,1,mostleft(head,1));
+    }
+    int bs(struct TreeNode* head,int l,int h)
+        {
+        if(l==h)
+        {
+            return 1;
+        }
+        if(mostleft(head->right,l+1)==h)
+            return  (1<<(h-l))+bs(head->right,l+1,h);
+        else
+            return (1<<(h-l-1))+bs(head->left,l+1,h);
+         
+    }
+    int mostleft(struct TreeNode* head,int level)
+        {
+        while(head!=NULL)
+            {
+            level++;
+            head=head->left;
+        }
+        return level-1;
+    }
+    
+};

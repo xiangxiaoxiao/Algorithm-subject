@@ -1,0 +1,19 @@
+//给定浮点数组a,求一个数组b, b[i] = a[0] * a[1] *…*a[i – 1] * a[i + 1] * …*a[n – 1],不能使用除法，不允许再开数组
+#include <iostream>
+void main()
+{ 
+	int a[]={1,2,3,4,5,6,7,8,9,10};
+	int b[10]={0},i,j;
+	for(i=9;i>=0;i--)
+	{
+		if(i==9)
+			b[i]=a[i];
+		else
+			b[i]=a[i]*b[i+1];
+	}
+	for(i=0,j=1;i<10;j*=a[i++])
+		b[i]=j*((i==9)?1:b[i+1]);
+	
+	for(j=0;j<10;j++)
+		printf("%d  ",b[j]);
+}

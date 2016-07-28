@@ -1,0 +1,70 @@
+int main()
+{
+	vector<int> num;
+
+	int n,max,min,j;
+
+
+	while(cin>>n)
+	num.push_back(n);
+	max=num[0];
+	min=num[0];
+	for(int i=1;i<num.size();i++)
+	{
+		if(max<num[i])
+			max=num[i];
+		if(min>num[i])
+			min=num[i];
+	}
+	if(max==min)
+	{
+		cout<<" is 0 ";
+		return 0;
+	}
+	cout<<"max is "<<max<<endl;
+	cout<<"min is "<<min<<endl;
+
+	int *maxnum=new int[num.size()+1];
+	int *minnum=new int[num.size()+1];
+	int *hasnum=new int[num.size()+1]();
+	for(int i=0;i<num.size();i++)
+	{
+		j=(num[i]-min)*num.size()/(max-min);
+		if(hasnum[j])
+		{
+			maxnum[j]=maxnum[j]>num[i]?maxnum[j]:num[i];
+			minnum[j]=minnum[j]<num[i]?minnum[j]:num[i];
+			cout<<"Ö´ĞĞ£º£¡";
+		}
+		else
+		{
+			maxnum[j]=num[i];
+			minnum[j]=num[i];
+			hasnum[j]=1;
+		}
+		cout<<"j is "<<j<<"maxnum is "<<maxnum[j]<<" minnum is "<<minnum[j]<<endl;
+
+	}
+	int res=0;
+	int lastmax=0;
+	int i=0;
+	while(i<=num.size())
+	{
+		if(hasnum[i++])
+		{
+			lastmax=maxnum[i-1];
+			break;
+		}
+	}
+	for(;i<=num.size();i++)
+	{
+		if(hasnum[i])
+		{
+			res=res>(minnum[i]-lastmax)?res:(minnum[i]-lastmax);
+			cout<<"res is "<<res<<endl;
+			lastmax=maxnum[i];
+		}
+	}
+	cout<<"res is "<<res;
+	return 0;
+}

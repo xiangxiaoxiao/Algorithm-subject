@@ -1,0 +1,40 @@
+#include <iostream>
+void main()
+{
+	int a[]={521,310,12,373,15,12,38,856,187,147};
+	int temp,j;
+	int gap=5;
+	while(gap!=1)
+	{
+		
+		for(int i=0;i<10;i+=gap)
+		{
+			for(j=i;j<i+gap;j++)
+				for(int k=j+1;k<i+gap;k++)
+				{
+					if(a[j]>a[k])
+					{
+						temp=a[k];
+						a[k]=a[j];
+						a[j]=temp;
+					}
+				}
+		}
+		gap=gap/2;
+	}
+	for(int i=1;i<10;i++)
+		{
+			if(a[i]<a[i-1])
+			{
+				temp=a[i];
+				for(int j=i-1;j>=0&&a[j]>temp;j--)
+					a[j+1]=a[j];
+				a[j+1]=temp;
+			}
+		}
+
+	
+	for(j=0;j<10;j++)
+		printf("%d ",a[j]);
+
+}

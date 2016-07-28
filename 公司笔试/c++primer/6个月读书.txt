@@ -1,0 +1,78 @@
+int main()
+
+{
+	vector<string> svec;
+	
+set<string> ss;
+	svec.push_back("a");
+
+	svec.push_back("b");
+
+	svec.push_back("c");
+	
+	svec.push_back("d");
+	
+	svec.push_back("e");
+
+	svec.push_back("f");
+
+	cout << "6个月前：" << endl;
+
+	string s="";
+
+	int flag = 0;
+
+	for (vector<string>::iterator it = svec.begin(); it != svec.end(); )
+
+	{
+		
+		cout << *it;
+
+		cout << " 看1不看0 :";
+
+		cin >> flag;
+
+		if (flag == 1)
+
+		{
+
+			ss.insert(*it);
+
+			it=svec.erase(it);
+
+			continue;
+
+		}
+
+		it++;
+		
+			cout << "............." << endl;
+
+	}
+
+	cout << "6个月后：" << endl;
+
+	
+	for (set<string>::iterator it1 = ss.begin(); it1 != ss.end(); )
+
+	{
+
+		cout << *it1 << "这本书你看过吗？(看0否1)： ";
+		cin >> flag;
+		if (flag == 1)
+		{
+			svec.push_back(*it1);
+			ss.erase(*it1++);
+			continue;
+		}
+		it1++;
+	}
+	cout << " set : ";
+	for (set<string>::iterator i = ss.begin(); i != ss.end(); i++)
+		cout << *i << " ";
+	cout << "vector : ";
+	for (vector<string>::iterator it2 = svec.begin(); it2 != svec.end(); it2++)
+		cout << *it2 << " ";
+	system("pause");
+	return 0;
+}

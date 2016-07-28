@@ -1,0 +1,27 @@
+
+	//string->char*
+	string s("aaaaaaaa");
+	const char *p=s.c_str();
+	char *q = const_cast<char *>(p);
+	cout << q;
+	//char*->string
+	char *q1 = { "bbbbbbb" };
+	string s1(q1);
+	cout << s1;
+	//char*->const char*
+	char *p2 = { "cccccccc" };
+	const char *q2 = p2;
+	cout << q2;
+
+	//const char*->char
+	const char * p3 = { "dddddddddd" };
+	char *q3 = const_cast<char *>(p3);
+	cout << q3;
+	//string ->const char*
+	string s2("eeeeeee");
+	const char *p4 = s2.c_str();
+	cout << p4;
+	//const char *->string
+	const char *p5 = { "ffffff" };
+	string s3 = p5;
+	cout << s3;

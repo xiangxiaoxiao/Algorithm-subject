@@ -1,0 +1,49 @@
+/*…ﬂ–Œ¥Ú”°
+123
+456
+789
+¥Ú”°123698745
+*/
+#include<iostream>
+using namespace std;
+void main()
+{
+	int a[][4]={{1,2,3,4},{5,6,7,8},{9,10,11,12},{13,14,15,16}};
+	int m,n,k;
+	m=4;n=4;
+	int i=0,j=0,e=m-1,f=n-1;
+	while(true)
+	{
+		if(a[i][j]==a[e][f])
+		{
+			cout<<a[i][j]<<" ";
+			break;
+		}
+		else if(a[i][j]>a[e][f])
+		{
+			break;
+		}
+
+		for(k=i;k<=f;k++)
+		{
+			cout<<a[i][k]<<" ";
+		}
+		for(k=j+1;k<=e;k++)
+		{
+			cout<<a[k][f]<<" ";
+		}
+		for(k=e-1;k>=i;k--)
+        {
+			cout<<a[e][k]<<" ";
+		}
+		for(k=f-1;k>j;k--)
+		{
+			cout<<a[k][j]<<" ";
+		}
+		i++;
+		j++;
+		e--;
+		f--;
+	}
+
+}

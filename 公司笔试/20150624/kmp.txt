@@ -1,0 +1,108 @@
+/*next[]Êý×é   
+a  b  c  d  a  b  c  d  e  f
+-1 0  0  0  0  1  2  3  4  0
+*/
+	public int getIndexOf(String s, String m) {
+	    if (s == null || m == null || m.length() < 1 || s.length() < m.length()) {
+		return -1;
+	    }
+	    char[] ss = s.toCharArray();
+	    char[] ms = m.toCharArray();
+	    int si = 0;
+	    int mi = 0;
+	    int[] next = getNextArray(ms);
+	    while (si < ss.length && mi < ms.length) {
+		if (ss[si] == ms[mi]) {
+			si++;
+			mi++;
+		} else if (next[mi] == -1) {
+			si++;
+		} else {
+			mi = next[mi];
+		}
+	    }
+	    return mi == ms.length ? si - mi : -1;
+	}
+
+
+	public int[] getNextArray(char[] ms) {
+		if (ms.length == 1) {
+			return new int[] { -1 };
+		}
+		int[] next = new int[ms.length];
+		next[0] = -1;
+		next[1] = 0;
+		int pos = 2;
+		int cn = 0;
+		while (pos < next.length) {
+			if (ms[pos - 1] == ms[cn]) {
+				next[pos++] = ++cn;
+			} else if (cn > 0) {
+				cn = next[cn];
+			} else {
+				next[pos++] = 0;
+			}
+		}
+		return next;
+	}
+
+
+c++:
+#include<iostream>
+#include<string>
+using namespace std;
+void main()
+{
+	string a,b;
+	cout<<"ÇëÊäÈë×Ö·û´®£º ";
+	cin>>a;
+	cout<<"ÇëÊäÈëÆ¥Åä´®";
+	cin>>b;
+	int len1=a.length();
+	int len2=b.length();
+	int *next=new int[len2];
+	next[0]=-1;
+	next[1]=0;
+	int j,i;
+	i=2;
+	j=0;
+	while(i<len2)
+	{
+		if(b[i-1]==b[j])
+			next[i++]=++j;
+		else if(j>0)
+			j=next[j];
+		else
+			next[i++]=0;
+	}
+	for(i=0;i<len2;i++)
+	{
+	cout<<"next is :"<<next[i]<<endl;
+	}
+	i=0;
+	j=0;
+	while(j<b.size()&&i<a.size())
+	{
+		if(a[i]==b[j])
+		{
+			j++;
+			i++;
+		}
+		else if(next[j]==-1)
+		{
+			i++;
+		}
+		else
+		{
+			j=next[j];
+			
+		}
+		
+
+	}
+	if(j==len2)
+		cout<<"True is"<<i-j;
+	else
+		cout<<"Wrong";
+
+}

@@ -1,0 +1,60 @@
+int merge(vector<int> s,int l,int mid,int r)
+{
+
+	int *p=new int[r-l+1];//排序后的数组
+	int hi=0;
+	int i=l;
+	int j=mid+1;
+	int smallnum=0;
+	while(i<=mid&&j<=r)
+	{
+		if(s[i]<=s[j])
+		{
+		smallnum+=s[i]*(r-j+1);
+		p[hi++] = s[i++];
+		}
+		else
+			p[hi++] = s[j++];
+	}
+
+	for (; (j < r + 1) || (i < mid + 1); j++, i++)
+	{
+		p[hi++] = i > mid ? s[j] : s[i];//判断左右两边的元素
+	}
+
+	for (int k = 0; k <= (r-l+1); k++)
+	{
+		s[l++] = p[k];//对归并的元素排序
+	}
+
+	return smallnum;
+}
+int fun(vector<int> s,int l,int r)
+{
+
+	if(l==r)
+		return 0;
+	int mid=(l+r)/2;
+	return fun(s,l,mid)+fun(s,mid+1,r)+merge(s,l,mid,r);
+}
+
+int minsum(vector<int> a)
+{
+
+	if(a.empty()||a.size()==0)
+		return 0;
+	return fun(a,0,a.size()-1);
+}
+
+int main()
+{
+	vector<int> num;
+	int n;
+	while(cin>>n)
+		num.push_back(n);
+	if(num.empty()||num.size()==0)
+		return 0;
+
+	cout<<"small is "<<minsum(num);
+	return 0;
+}

@@ -1,0 +1,23 @@
+#include <iostream>
+void main()
+{
+	int a[]={521,310,12,373,15,12,38,856,187,147};
+	int temp;
+	for(int i=1;i<10;i++)
+	{
+		if(a[i]<a[i-1])
+		{
+			int temp=a[i];
+			for(int j=i-1;j>=0&&a[j]>temp;j--)
+			{
+
+					a[j+1]=a[j];
+			}
+			a[j+1]=temp;
+			
+		}
+	}
+	for(i=0;i<10;i++)
+		printf("%d  ",a[i]);
+
+}

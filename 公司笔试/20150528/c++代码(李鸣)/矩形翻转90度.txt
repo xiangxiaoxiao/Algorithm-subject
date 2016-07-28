@@ -1,0 +1,46 @@
+/*矩阵转90度
+123
+456
+789
+
+变成
+741
+852
+963
+*/
+#include<iostream>
+using namespace std;
+void main()
+{
+	int a[][4]={{1,2,3,4},{5,6,7,8},{9,10,11,12},{13,14,15,16}};
+	int m,n,k;
+	m=4;n=4;
+	int i=0,j=0,e=m-1,f=n-1;
+	int temp;
+	while(true)
+	{
+		
+		 if(a[i][j]>=a[e][f])
+		{
+			break;
+		}
+	for(k=i;k<e;k++)
+	{
+		temp=a[i][j+k];
+		a[i][j+k]=a[e-k][j];
+		a[e-k][j]=a[e][f-k];
+		a[e][f-k]=a[i+k][f];
+		a[i+k][f]=temp;
+	
+	}
+	i++;
+	
+	j++;
+	e--;
+	f--;
+	
+	}  
+	for(i=0;i<m;i++)
+		for(j=0;j<n;j++)
+			cout<<a[i][j]<<" ";
+}

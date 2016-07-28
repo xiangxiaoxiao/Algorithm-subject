@@ -1,0 +1,50 @@
+int main()
+{
+	int m,n;
+	int temp;
+	cin>>m;
+	cin>>n;
+	int **p = new int*[m];
+	int *q=new int[n];
+	cout<<"m is "<<m<<"n is "<<endl;
+	for(int i=0;i<m;i++)
+		p[i] = new int[n];
+
+	for(int i=0;i<m;i++)
+	{
+		for(int j=0;j<n;j++)
+		{
+			cin>>temp;
+			p[i][j]=temp;
+		}
+	}
+	cout<<"ÊäÈëÍê±Ï";
+	for(int j=0;j<m;j++)
+	{
+		for(int i=0;i<n;i++)
+		{
+			if(j==0)
+			{
+				if(i==0)
+					q[i]=p[j][i];
+				else
+					q[i]=q[i-1]+p[j][i];
+			}else
+			{
+				if(i==0)
+					q[i]=q[i]+p[j][i];
+				else
+					q[i]=((q[i]>q[i-1])?q[i-1]:q[i])+p[j][i];
+			}
+
+
+		}
+	}
+	cout<<"result is : "<<q[n-1];
+
+
+
+
+
+	return 0;
+}

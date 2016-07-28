@@ -1,0 +1,39 @@
+#include <iostream>
+#define N 10
+int getnum(int x,int pos)
+{
+	int temp=1;
+	for(int i=0;i<pos-1;i++)
+		temp*=10;
+	x=x/temp;
+	return x%10;
+}
+void main()
+{
+	int a[]={521,310,72,373,15,546,385,856,187,147};
+	int b[10][10]={0};
+	int n,i,j;
+	for(i=0;i<3;i++)
+	{	
+		for(j=0;j<10;j++)/*·ÖÅä*/
+		{
+			
+			int num=getnum(a[j],i+1);
+			
+			int index=++b[num][0];
+			b[num][index]=a[j];
+		}
+		
+		for(int k=0,n=0;k<10;k++)/*ÊÕ¼¯*/
+		{
+			for(j=1;j<=b[k][0];j++)
+			{	
+				a[n++]=b[k][j];
+			}
+			b[k][0]=0;
+		}
+	
+	}
+	for(i=0;i<10;i++)
+		printf("%d  ",a[i]);
+}

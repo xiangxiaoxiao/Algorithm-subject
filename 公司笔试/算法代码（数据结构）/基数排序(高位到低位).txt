@@ -1,0 +1,41 @@
+#include <iostream>
+void main()
+{
+	int a[]={521,310,12,373,15,12,38,856,187,147};
+	int b[3][10]={0};
+	int n,i,j;
+	int temp;
+	int num,count;
+	for(i=0;i<10;i++)
+		{	
+			count=0;
+			temp=a[i];
+			while(temp!=0)
+			{
+				temp/=10;
+				count++;
+			}
+			num=++b[count-1][0];
+			b[count-1][num]=a[i];
+		}
+	for(i=0;i<3;i++)
+		for(j=1;b[i][j]!=0;j++)
+		{
+			for(int k=j+1;b[i][k]!=0;k++)
+			{
+				if(b[i][j]>b[i][k])
+				{
+					temp=b[i][k];
+					b[i][k]=b[i][j];
+					b[i][j]=temp;
+					
+				}
+			}
+		}
+
+	
+	
+	for(i=0;i<3;i++)	
+		for(j=1;j<=b[i][0];j++)
+		printf("%d  ",b[i][j]);
+}
