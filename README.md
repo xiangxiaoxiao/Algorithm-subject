@@ -61,6 +61,7 @@ HTTP协议！
 面试准备：
 c++基础，stl源码，常用的数据结构，linux命令。
 熟悉TCP/IP，HTTP协议，多线程编程，熟悉面向对象思想，熟悉常用的设计模式。
+遇到的问题：TCP黏包问题（http://blog.csdn.net/zhangxinrun/article/details/6721495）
 
 http 轮询和心跳(项目中遇到的问题)
 
