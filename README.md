@@ -63,6 +63,7 @@ c++基础，stl源码，常用的数据结构，linux命令。
 熟悉TCP/IP，HTTP协议，多线程编程，熟悉面向对象思想，熟悉常用的设计模式。
 遇到的问题：TCP黏包问题（http://blog.csdn.net/zhangxinrun/article/details/6721495）
 http和http1.0 ,https有什么区别。  多线程遇到的问题。
+百度面试总结：细节（tcp网络这块），项目（项目框架，结构），代码能力（需要加强），加油，知道了差距，校招继续努力！
 
 http 轮询和心跳(项目中遇到的问题)
 
